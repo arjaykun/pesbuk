@@ -22,15 +22,15 @@
 
   <x-slot name="footer_options" >
 
-    {{-- <livewire:object-likes :object="$object" :key="$object->id" />
+    <livewire:reply-likes :reply="$reply" :key="$reply->id" />
 
-    <x-forms.icon-button text="Replies" :bordered="false" class="p-2" >
-      <svg class="w-5 mr-1 text-purple-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+    <x-forms.icon-button text="Reply" :bordered="false" class="px-2" @click="$refs.replyInput.focus()">
+      <svg class="w-3 mr-1 text-purple-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
         <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
         <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
       </svg>
     </x-forms.icon-button>
- --}}
+
   </x-slot>
 
 
