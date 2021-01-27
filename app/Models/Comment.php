@@ -28,6 +28,11 @@ class Comment extends Model
     	return $this->belongsTo(User::class);
     }
 
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
      public function liked()
     {
         return $this->likes()->where('user_id', auth()->user()->id)->count();

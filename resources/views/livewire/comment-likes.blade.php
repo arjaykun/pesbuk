@@ -1,6 +1,6 @@
 <div class="ml-10">
 	<div wire:loading>
-		<img src="{{ asset('loading.svg') }}" alt="Loading..." width="30" height="30">
+		<img src="{{ asset('loading-dark.svg') }}" alt="Loading..." width="30">
 	</div>
 	<div wire:loading.class="hidden">
 
@@ -29,9 +29,6 @@
 			</svg>
 
 		</x-forms.icon-button>
-
-
-
 
 	@endif
 

@@ -1,10 +1,11 @@
-<div class="bg-white mt-2 rounded p-2" x-data="{showOption:false, showComments:false, comment_id:@entangle('commentId')}">
+<div class="bg-white mt-2 rounded p-2" x-data="{showOption:false, showComments:false, hide: true}">
   {{-- post header --}}
   <div class="flex items-center justify-between">
     
     <h2 class="text-purple-500">
         <x-user-image :user="$post->user" />
-        {{ $post->user->name }} <small class="ml-0 text-gray-500 italic text-xs">{{ $post->created_at->diffForHumans() }}</small>
+        <span class="font-bold ml-1">{{ $post->user->name }}</span> 
+        <small class="ml-0 text-gray-500 text-xs">{{ $post->created_at->diffForHumans() }}</small>
     </h2>
 
     <div :class="{'relative':showOption}">
@@ -56,15 +57,24 @@
   </div>
 
   {{-- post text --}}
-  <p class="py-2">
 
-    {{ $post->post }}
+  <div :class="{'hidden':!hide, 'block':hide}" class="block py-2 text-sm break-words" >
+    {{ Str::limit($post->post, 250, '...') }}
+    @if (strlen($post->post) > 250)
+      <button class="text-purple-600 mt-2 block focus:outline-none" @click="hide=false">
+        see all
+      </button>
+    @endif  
+  </div>
 
-  </p>
+  <div :class="{'hidden':hide, 'block':!hide}" class="hidden py-2 text-sm break-words" >
+   <div>{{ $post->post }}</div>
+  </div>
+    
 
   {{-- post footer --}}
 
-  <div class="mt-1 flex items-center">  
+  <div class="mt-1 flex items-center text-sm">  
     {{-- like button --}}
     <livewire:post-likes :post="$post" />
     {{-- comment button --}}
@@ -74,21 +84,22 @@
   {{-- comments sections --}}
   <div class="mt-2 hidden overflow-hidden" :class="{'block':showComments, 'hidden': !showComments}">
     <hr class="py-2" />
-
     {{-- comment list --}}
-    @forelse($post->comments as $comment)
-      <x-posts.comment-card :comment="$comment" />
+    @forelse($post->comments as $comment)  
+      <div x-data="{showReplies:false}">
+        <x-posts.comment-card :comment="$comment" :edit="$editReplyModal" />
+      </div>
     @empty
       <div class="text-sm w-full text-center text-gray-700 mb-2">There's no comment in this post yet.</div>
     @endforelse
-
+   
     {{-- comment textarea --}}
      <div class="flex items-center">
         <div class="w-9">
           <x-user-image :user="auth()->user()" />
         </div>
         
-        <textarea class="w-full bg-gray-300 h-8 rounded-md resize-none mx-2 p-1" placeholder="Write a comment..." @if(!$editCommentModal) wire:model.lazy="comment" @endif></textarea>
+        <textarea class="w-full bg-gray-300 h-8 rounded-md resize-none mx-2 p-1 focus:outline-none" placeholder="Write a comment..." @if(!$editCommentModal) wire:model.lazy="comment" @endif></textarea>
 
         <button class="focus:outline-none" wire:click="createComment">
           <svg class="w-7 text-purple-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -97,13 +108,12 @@
         </button>
       </div>
 
-      <div wire:loading wire:target="createComment" class="text-xs text-center w-full text-gray-500">
-        Commenting...
-      </div>
-
-      {{-- comment edit --}}
-      <x-posts.edit-comment-modal :show="$editCommentModal" />
+      
   </div>
+
+  {{-- comment edit --}}
+  <x-posts.edit-comment-modal :show="$editCommentModal" />
+  <x-posts.edit-reply-modal :show="$editReplyModal" />
 
 
   @if (session()->has('success'))     
@@ -112,13 +122,7 @@
     </div>
   @endif
 
-   {{-- overlay --}}
-  <div wire:loading.flex class="fixed inset-0 w-screen h-full bg-black opacity-80 z-40 flex items-center justify-center" >
-    <div>
-        <img src="{{ asset('loading.svg') }}" alt="Loading..." width="120" height="120">
-    </div>
-   
-  </div>
+  <x-loading-overlay />
 
 
 </div>

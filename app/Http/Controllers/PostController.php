@@ -11,7 +11,7 @@ class PostController extends Controller
 		{
 
 			$posts = Post::orderBy('updated_at', 'DESC')
-	  		->with('user', 'comments.user')
+	  		->with('user', 'comments.user', 'comments.replies.user')
 	  		->withCount(['likes'])
 	  		->get();
 
@@ -24,7 +24,7 @@ class PostController extends Controller
 
 			request()->validate([
 
-				'post' => 'required|max:1000'
+				'post' => 'required'
 
 			]);
 

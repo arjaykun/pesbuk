@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\Like;
 
 class Posts extends Component
 {
@@ -15,9 +16,13 @@ class Posts extends Component
 
 		public $commentId;
 
-		// public $status;
+		public $reply;
+
+		public $replyId;
 
 		public $editCommentModal = false;
+
+		public $editReplyModal = false;
 
 		// show the comment edit modal
 		public function showEditCommentModal ($comment_id, $comment) 
@@ -29,12 +34,23 @@ class Posts extends Component
 
 		}
 
+		// show the comment edit modal
+		public function showEditReplyModal ($reply_id, $reply, $comment_id) 
+		{
+
+			$this->replyId = $reply_id; 	
+			$this->commentId = $comment_id; 	
+			$this->reply = $reply;
+			$this->editReplyModal = true;
+
+		}
+
 
 		public function createComment () 
 		{	
 			$this->editCommentModal = false;
 
-			$this->validate(['comment' => 'required|max:1000']);
+			$this->validate(['comment' => 'required']);
 
 			$newComment = $this->post->comments()->create([
 				
@@ -43,6 +59,9 @@ class Posts extends Component
 				'comment' => $this->comment
 			
 			]);
+
+			$newComment->load('replies');
+			$newComment->loadCount('likes');
 
 			$this->post->comments->push($newComment);
 
@@ -56,7 +75,7 @@ class Posts extends Component
 		{				
 			 $this->editCommentModal = false;
 
-			 $this->validate(['comment' => 'required|max:1000']);
+			 $this->validate(['comment' => 'required']);
 
 			 $comment= Comment::find($this->commentId);
 
@@ -77,7 +96,59 @@ class Posts extends Component
 				
 				Comment::find($comment_id)->delete();
 
+				Like::where('object_id', $comment_id)->forceDelete();
+
 				$this->post->comments = $this->post->comments->except($comment_id);
+		}
+
+
+		public function createReply($comment_id) 
+		{
+			$this->validate(['reply' => 'required']);
+
+			$comment = $this->post->comments->find($comment_id);
+
+			$newReply = $comment->replies()->create([
+				'user_id' => auth()->user()->id,
+				'reply' => $this->reply
+			]);
+
+			$comment->replies->push($newReply);
+
+			$this->reply = '';
+		}
+
+		public function deleteReply($reply_id, $comment_id)
+		{
+			$comment = $this->post->comments->find($comment_id);
+
+			$comment->replies->find($reply_id)->delete();
+
+			Like::where('object_id', $reply_id)->forceDelete();
+
+			$comment->replies = $comment->replies->except($reply_id);
+		}
+
+		public function updateReply() 
+		{				
+			 $this->editReplyModal = false;
+
+			 $this->validate(['reply' => 'required']);
+
+			 $comment = $this->post->comments->find($this->commentId);
+
+			 $reply = $comment->replies->find($this->replyId);
+
+			 $reply->update(['reply' => $this->reply]);
+			 	
+			 $comment->replies =  $comment->replies
+														 ->except($this->replyId)
+														 ->push($reply->fresh('user'));
+
+			 $this->reply = '';
+
+			 session()->flash('success', 'You have updated a reply in ' . $comment->user->name . '\'s comment.');
+			
 		}
 
     public function render()

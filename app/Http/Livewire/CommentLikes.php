@@ -21,24 +21,23 @@ class CommentLikes extends Component
 		public function likePost() 
 		{
 
-
-			// $trashedLike = $this->post->likes()->onlyTrashed()->firstWhere('user_id', auth()->user()->id);
+			$trashedLike = $this->comment->likes()->onlyTrashed()->firstWhere('user_id', auth()->user()->id);
 			
-			// if( $trashedLike) {
+			if( $trashedLike) {
 
-			// 	$trashedLike->restore();
+				$trashedLike->restore();
 
-			// } else {
+			} else {
 
-			// 	$this->post->likes()->create([
+				$this->comment->likes()->create([
 
-			// 		'user_id' => auth()->user()->id, 
+					'user_id' => auth()->user()->id, 
 
-			// 		'type' => 'post'
+					'type' => 'comment'
 
-			// 	]);
+				]);
 
-			// }
+			}
 
 			$this->likes++;
 		}
@@ -46,7 +45,7 @@ class CommentLikes extends Component
 		// unlike post
 		public function unlikePost() 
 		{
-			// $this->post->likes()->firstWhere('user_id', auth()->user()->id)->delete();
+			$this->comment->likes()->firstWhere('user_id', auth()->user()->id)->delete();
 
 			$this->likes--;
 
