@@ -10,7 +10,7 @@ use App\Models\Like;
 class Posts extends Component
 {
 
-		public $post;
+		public $post_id;
 
 		public $comment;
 
@@ -60,8 +60,8 @@ class Posts extends Component
 			
 			]);
 
-			$newComment->load('replies');
-			$newComment->loadCount('likes');
+			// $newComment->load('replies', 'user');
+			// $newComment->loadCount('likes');
 
 			$this->post->comments->push($newComment);
 
@@ -80,9 +80,8 @@ class Posts extends Component
 			 $comment= Comment::find($this->commentId);
 
 			 $comment->update(['comment' => $this->comment]);
-			 	
 
-			 $this->post->comments = $this->post->comments->except($this->commentId)->push($comment->fresh('user'));
+			 $this->post->comments = $this->post->comments->except($this->commentId)->push($comment->fresh('user', 'replies')->withCount('likes'));
 
 			 $this->comment = '';
 
@@ -112,6 +111,9 @@ class Posts extends Component
 				'user_id' => auth()->user()->id,
 				'reply' => $this->reply
 			]);
+
+			// $newReply->load('user');
+			// $newReply->loadCount('likes');
 
 			$comment->replies->push($newReply);
 
@@ -152,7 +154,14 @@ class Posts extends Component
 		}
 
     public function render()
-    {
-        return view('livewire.posts');
+    {	
+
+    		$post = Post::find($this->post_id)
+						    		->with('user', 'comments.user', 'comments.replies.user')
+							  		->withCount(['likes'])
+							  		->get();
+
+
+        return view('livewire.posts', compact('post'));
     }
 }

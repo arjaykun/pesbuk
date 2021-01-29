@@ -10,6 +10,7 @@ class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use LikedBy;
 
     protected $guarded = [];
 
@@ -25,11 +26,7 @@ class Post extends Model
 
     public function comments() 
     {
-        return $this->hasMany(Comment::class)->orderBy('updated_at', 'DESC')->withCount('likes');
+        return $this->hasMany(Comment::class)->withCount('likes');
     }
-	
-	public function liked() 
-    {
-		return $this->likes()->where('user_id', auth()->user()->id)->count();
-	}    
+
 }

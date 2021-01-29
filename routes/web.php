@@ -1,9 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\PostController;
 
-Route::get('/', [PostController::class, 'index'])->middleware('auth')->name('posts.index');
+use App\Http\Livewire\ShowPosts;
 
-Route::resource('posts', PostController::class)->only('store', 'show', 'update')->middleware('auth');
+
+Route::get('/', ShowPosts::class)->middleware('auth');
+
+// Route::get('/', [PostController::class, 'index'])->middleware('auth')->name('posts.index');
+
+// Route::resource('posts', PostController::class)->except('index')->middleware('auth');

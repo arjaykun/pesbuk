@@ -1,8 +1,8 @@
 <div 
-	{{ $attributes->merge(['class' => 'fixed inset-0 w-full h-full flex justify-center items-start z-100 hidden']) }}
+	{{ $attributes->merge(['class' => 'fixed inset-0 w-screen h-full flex justify-center items-start  z-100']) }}
 >
   
-  <div class="bg-white md:w-96 w-10/12 h-auto py-5 px-3 rounded-md z-50 mt-20">
+  <div class="bg-white md:w-96 w-10/12 h-auto py-5 px-3 rounded-md z-50 my-auto">
     
    	{{ $slot }}
 

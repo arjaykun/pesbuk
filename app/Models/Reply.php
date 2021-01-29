@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reply extends Model
 {
     use HasFactory;
+    use LikedBy;
 
     protected $guarded =  [];
 
@@ -26,8 +27,4 @@ class Reply extends Model
         return $this->hasMany(Like::class, 'object_id')->where('type', 'reply');
     }
 
-    public function liked()
-    {
-        return $this->likes()->where('user_id', auth()->user()->id)->count();
-    }
 }

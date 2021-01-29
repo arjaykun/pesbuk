@@ -3,7 +3,7 @@
 		<x-posts.form  />
 
 		@foreach ($posts as $post)
-			<livewire:posts :post="$post" :key="$post->id" />
+			<livewire:posts :post_id="$post->id" :key="$post->id" />
 		@endforeach
 		
 		{{-- edit modal --}}
@@ -46,8 +46,16 @@
 
 		    <div class="grid grid-cols-2 gap-2 pt-5">
 
-		  		{{-- confirm button --}}
-		  		<livewire:post-delete />
+		  			<form  method="POST" class="w-full" id="deleteForm">
+							@csrf
+							@method('DELETE')
+						
+						  {{-- confirm button --}}
+						  <x-forms.default-button class="bg-purple-700 border-purple-700 text-white border hover:bg-white hover:text-gray-700 w-full" type="submit">
+								Proceed
+							</x-forms.default-button>
+
+						</form>
 
 		      {{-- cancel button --}}
 		      <x-forms.default-button class="border-gray-700 border" @click="$refs.confirmModal.classList.add('hidden')">Cancel</x-forms.default-button>

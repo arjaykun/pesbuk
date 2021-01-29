@@ -6,12 +6,7 @@
 
   <title>Pesbuk</title>
     @livewireScripts
-    
-
     <script src="{{ asset('js/app.js') }}"></script>
-
-
-
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -31,13 +26,9 @@
     @include('navigation')
 
     <div class="flex items-center justify-center py-5 w-full h-auto">
-      
-
       <div class="md:w-1/2 lg:w-1/3 w-11/12 h-auto">
         {{ $slot }}
-      </div>
-
-      
+      </div>  
     </div>
 
   </body>
