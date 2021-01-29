@@ -22,7 +22,7 @@
       </div>
       {{-- object text --}}
       <p class="my-1 text-sm">
-        {{ $text }}
+        <x-limit-text :text="$text" />
       </p>
     </div>
   </div>

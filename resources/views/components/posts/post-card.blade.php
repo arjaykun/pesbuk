@@ -1,6 +1,6 @@
-@props(['post'])
+@props(['post', 'isLast'])
 
-<div class="bg-white mt-2 rounded p-2" x-data="{showOption:false, showComments:false, hide: true}">
+<div class="bg-white mt-2 rounded p-2" x-data="{showOption:false, showComments:false}" @if($isLast) id="lastPost"  @endif>
   {{-- Post Header --}}
   <div class="flex items-center justify-between">
     {{-- Post Image and Name --}}
@@ -56,18 +56,9 @@
   {{-- End -> Post Header --}}
 
   {{-- post text --}}
-  <div :class="{'hidden':!hide, 'block':hide}" class="block py-2 text-sm break-words" >
-    {{ Str::limit($post->post, 250, '...') }}
-    @if (strlen($post->post) > 250)
-      <button class="text-purple-600 mt-2 block focus:outline-none" @click="hide=false">
-        see all
-      </button>
-    @endif  
-  </div>
+  <x-limit-text :text="$post->post" />
 
-  <div :class="{'hidden':hide, 'block':!hide}" class="hidden py-2 text-sm break-words" >
-   <div>{{ $post->post }}</div>
-  </div>
+
   {{-- End -> Post Text --}}
 
   {{-- post footer --}}

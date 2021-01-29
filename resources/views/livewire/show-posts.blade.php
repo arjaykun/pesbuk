@@ -13,7 +13,7 @@
 			</div>
 			<textarea 
 				placeholder="What's in your mind?"
-				class="w-full h-12 p-2 rounded bg-gray-200 resize-none focus:outline-none"
+				class="w-full h-12 p-2 rounded bg-gray-200 focus:outline-none"
 				wire:model.defer="newPost"
 			></textarea>
 			<div class="flex items-center justify-between my-2">
@@ -27,12 +27,17 @@
 		</form>
 	</div>
 	{{-- End -> Create Post Form --}}
+	<div>
+		{{-- Looping of Posts --}}
+		@foreach ($posts as $post)
+			<x-posts.post-card :post="$post" :is-last="$loop->last"/>
+		@endforeach
+		{{-- End -> Looping of Posts --}}
 
-	{{-- Looping of Posts --}}
-	@foreach ($posts as $post)
-		<x-posts.post-card :post="$post" />
-	@endforeach
-	{{-- End -> Looping of Posts --}}
+		@if ($posts->count() !== $count)
+			<h3 class="text-center block text-sm text-gray-700 bg-gray-200 rounded-md my-2 p-2">There are no more post to load.</h3>
+		@endif
+	</div>
 
 	{{-- Modals --}}
 	<x-posts.delete-confirm-modal :show="$deleteConfirm" />
@@ -44,6 +49,27 @@
 
 	{{-- loading overlay if wire:loading is true --}}
 	<x-loading-overlay />
+
+	@push('scripts')
+		<script>
+			const lastPost = document.querySelector('#lastPost');
+			const options = {
+				root: null,
+				threshold: 1,
+				rootMargin: '0px'
+			}
+
+			const observer =  new IntersectionObserver( entries => {
+				entries.forEach(entry => {
+					if(entry.isIntersecting) {
+						@this.scroll()
+					}
+				})
+			}, options)
+
+			observer.observe(lastPost);
+		</script>
+	@endpush
 
 </div>
 {{-- End  -> Main Section --}}
