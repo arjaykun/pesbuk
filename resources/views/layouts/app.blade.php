@@ -17,7 +17,7 @@
 <body class="antialiased  bg-gray-100 ">
   @include('navigation')
 
-  <div class="flex items-center justify-center py-5 w-full h-auto">
+  <div class="flex items-center justify-center py-5 w-screen h-auto">
     <div class="md:w-1/2 lg:w-1/3 w-11/12 h-auto">
       {{ $slot }}
     </div>  

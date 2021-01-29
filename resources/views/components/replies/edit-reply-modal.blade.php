@@ -12,7 +12,7 @@
 			Save Changes
 		</x-forms.default-button>
 	  {{-- cancel button --}}
-	  <x-forms.default-button class="border-gray-700 border" @click="$refs.editReplyModal.classList.add('hidden')">
+	  <x-forms.default-button class="border-gray-700 border" wire:click="$set('editReplyForm', false)">
 			Cancel
 		</x-forms.default-button>
 	</div>
