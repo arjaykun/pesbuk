@@ -6,7 +6,7 @@
     {{-- Post Image and Name --}}
     <h2 class="text-purple-500">
         <x-user-image :user="$post->user" />
-        <span class="font-bold ml-1">{{ $post->user->name }}</span> 
+        <x-user-name :user="$post->user" />
         <small class="ml-0 text-gray-500 text-xs">{{ $post->created_at->diffForHumans() }}</small>
     </h2>
     {{-- End -> Post Image and Name --}}
@@ -56,7 +56,7 @@
   {{-- End -> Post Header --}}
 
   {{-- post text --}}
-  <x-limit-text :text="$post->post" />
+  <x-limit-text :text="$post->post" class="text-sm" />
 
 
   {{-- End -> Post Text --}}
@@ -67,6 +67,23 @@
     <x-posts.comment-button :post="$post" @click="showComments=!showComments" class="ml-2" /> 
   </div>
 
+  @php
+    $lastComment = $post->comments->last();
+  @endphp
+
+  @if($lastComment)
+    <div class="w-full mt-2 cursor-pointer" :class="{'hidden':showComments, 'block':!showComments}">
+      <div class="bg-gray-100 text-xs w-full rounded-md py-1 px-2">
+        <div>
+          <x-user-image :user="$lastComment->user" size="xs" />
+          <x-user-name :user="$lastComment->user" size="xs" />
+          <span class="text-gray-500">{{ $lastComment->created_at->diffForHumans() }}</span>
+        </div>
+        <x-limit-text :text="$lastComment->comment" limit="20" />
+      </div>
+    </div>
+  @endif
+    
   <x-comments.container :post="$post" />
 
 </div>

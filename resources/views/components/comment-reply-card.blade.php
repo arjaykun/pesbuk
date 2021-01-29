@@ -12,7 +12,7 @@
       <div class="flex items-center justify-between">
         {{-- object user name and date created --}}
         <div class="text-purple-700 text-sm">
-          <span class="text-bold">{{ $object->user->name }} </span>
+          <x-user-name :user="$object->user" />
           <small class="text-gray-500 text-xs">{{ $object->created_at->diffForHumans() }}</small>
         </div>
         {{-- object options container --}}
@@ -22,7 +22,7 @@
       </div>
       {{-- object text --}}
       <p class="my-1 text-sm">
-        <x-limit-text :text="$text" />
+        <x-limit-text :text="$text" class="text-xs" />
       </p>
     </div>
   </div>

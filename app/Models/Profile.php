@@ -15,4 +15,24 @@ class Profile extends Model
     {
     	return $this->belongsTo(User::class);
     }
+
+    public function followers()
+    {
+    	return $this->belongsToMany(User::class)->withTimestamps();
+    }
+
+    public function hasFollowed()
+    {
+        return $this->followers()->where('user_id', auth()->user()->id)->count();
+    }
+
+    public function follow()
+    {
+        $this->followers()->attach(auth()->user()->id);
+    }
+
+    public function unfollow()
+    {
+        $this->followers()->detach(auth()->user()->id);
+    }
 }

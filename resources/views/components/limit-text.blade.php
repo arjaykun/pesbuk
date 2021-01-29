@@ -1,10 +1,14 @@
- @props(['text'])
+ @props(['text', 'limit' => 250])
  
- <div x-data="{showAll:false}" class="block py-2 text-sm break-words" >
-  <p :class="{'hidden':showAll, 'inline-block':!showAll}">{{ Str::limit($text, 250, '...') }}</p>
-  <p class="hidden" :class="{'hidden':!showAll, 'inline-block':showAll}">{{ $text }}</p>
+ <div x-data="{showAll:false}" {{ $attributes->merge(['class' => 'block py-1 break-words']) }}>
+  <p :class="{'hidden':showAll, 'inline-block':!showAll}" class="break-words">
+  	{{ Str::limit($text, $limit, '...') }}
+  </p>
+  <p class="hidden break-words" :class="{'hidden':!showAll, 'inline-block':showAll}">
+  	{{ $text }}
+  </p>
   
-  @if (strlen($text) > 250)
+  @if (strlen($text) > $limit)
     <button :class="{'hidden':showAll}" class="text-purple-600 mt-2 focus:outline-none inline-block" @click="showAll=true">
       see all
     </button>

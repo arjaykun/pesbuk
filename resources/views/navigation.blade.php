@@ -1,9 +1,9 @@
 <nav class="flex items-center w-screen justify-between bg-purple-700 py-3 lg:px-20 px-5 relative" x-data="{showSideMenu: false, openProfileOption:false}">
         
   {{-- right nav --}}
-  <div class="text-white flex items-center">
+  <div class="text-gray-100 flex items-center">
     
-    <button class="text-gray-200 hover:text-white md:hidden inline-block focus:outline-none" @click="showSideMenu=true">
+    <button class="text-gray-200 hover:text-white lg:hidden inline-block focus:outline-none" @click="showSideMenu=true">
       
       <svg class="w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -11,7 +11,7 @@
 
     </button> 
 
-    <h1 class="text-xl font-extrabold md:inline-block hidden">Pesbuk.com</h1>
+    <a class="text-xl font-extrabold lg:inline-block hidden hover:text-white" href="/">Pesbuk.com</a>
 
   </div>
 

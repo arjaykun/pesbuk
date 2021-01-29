@@ -14,13 +14,27 @@
 @livewireStyles
 </head>
 
-<body class="antialiased  bg-gray-100 ">
+<body class="antialiased bg-purple-100">
   @include('navigation')
 
-  <div class="flex items-center justify-center py-5 w-screen h-auto">
+  <div class="flex justify-center py-5 w-screen h-auto">
+    <div class="lg:flex hidden lg:w-1/3 h-auto justify-end lg:pr-2 h-auto">
+      <div class="w-52 bg-white rounded-md px-2 h-auto">
+      @if (!isset($sidebar))
+        @include('default-sidebar')
+      @else
+        {{ $sidebar }}
+      @endif
+      </div>
+    </div>
+
     <div class="md:w-1/2 lg:w-1/3 w-11/12 h-auto">
       {{ $slot }}
     </div>  
+
+    <div class="lg:w-1/3 w-0 h-auto">
+      
+    </div>
   </div>
 
   @livewireScripts

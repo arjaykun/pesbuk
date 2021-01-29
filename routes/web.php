@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 
 use App\Http\Livewire\ShowPosts;
 use App\Http\Livewire\ViewPost;
+use App\Http\Livewire\ProfileView;
 
 
 Route::group(['middleware' => 'auth'], function() {
@@ -12,6 +13,8 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/', ShowPosts::class)->name('posts.index');
 
 	Route::get('posts/{post}', ViewPost::class)->name('posts.show');
+
+	Route::get('profile/{user}', ProfileView::class)->name('user.profile');
 
 });
 

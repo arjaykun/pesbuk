@@ -8,18 +8,16 @@ use App\Models\Post;
 
 class ViewPost extends Component
 {
-		use Commentable;
+	use Commentable;
     use Repliable;
     use PostFunctions;
 
-		public Post $post;
+	public Post $post;
 
-    public $editPost;
-
-		public function mount(Post $post)
-		{
-			$this->post = $post;
-		}
+	public function mount(Post $post)
+	{
+		$this->post = $post;
+	}
 
     public function render()
     {	

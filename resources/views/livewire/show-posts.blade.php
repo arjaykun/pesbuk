@@ -8,9 +8,7 @@
 	{{-- Create Post Form --}}
 	<div class="bg-white rounded-md p-2">
 		<form wire:submit.prevent="createPost" wire:ignore>
-			<div class="text-gray-700 text-md pb-1">
-				{{ auth()->user()->name }} 
-			</div>
+			<x-user-name />
 			<textarea 
 				placeholder="What's in your mind?"
 				class="w-full h-12 p-2 rounded bg-gray-200 focus:outline-none"
