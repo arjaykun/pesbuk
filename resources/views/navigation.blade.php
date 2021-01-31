@@ -34,7 +34,7 @@
         :class="{'block':openProfileOption, 'hidden':!openProfileOption}" 
         @click.away="openProfileOption=false"        
       >
-
+          
           <a href="" class="hover:text-gray-700 focus:outline-none">Settings </a
             >
           {{-- logout button --}}
@@ -62,7 +62,15 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
+
+      <h1 class="text-3xl font-extrabold text-purple-700 py-2">
+        Pes<span class="text-purple-500">buk</span><small class="text-purple-300">.com</small>
+      </h1>
+
+
     </div>
+    <hr />
+    <x-menu />
 
   </div>
 

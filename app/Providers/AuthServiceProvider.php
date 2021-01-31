@@ -39,5 +39,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('modify-reply', function (User $user, \App\Models\Reply $reply) {
             return $user->id == $reply->user_id;
         });
+
+        Gate::define('can-follow', function(User $user, \App\Models\Profile $profile) {
+            return $user->id != $profile->id;
+        });
     }
 }

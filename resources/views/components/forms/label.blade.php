@@ -1,3 +1,3 @@
-	@props(['text'])
+@props(['text', 'size'=>'sm'])
 
-	<label class="text-sm text-gray-600 font-bold">{{ $text }}</label>
+<label {{ $attributes->merge(["class" => "text-gray-600 font-bold ". ($size == 'sm' ? 'text-sm' : 'text-xs')]) }} >{{ $text }}</label>

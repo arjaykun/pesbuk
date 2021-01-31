@@ -51,14 +51,29 @@
 
 	{{-- Sidebar --}}
 	<x-slot name="sidebar" >
-		<div class="py-2 w-full">
+		<div class="py-2 w-full" wire:ignore>
 			<img src="{{ asset('storage/profiles/'.$user->profileImage) }}" alt="Profile Image" class="rounded-full w-40 h-40 mx-auto">
 		</div>
 
 		<h1 class="text-lg font-bold text-center text-gray-700">{{ $user->name }}</h1>
 		
-		<livewire:follow-user :profile="$user->profile" />
+		@can('can-follow', $user->profile)
+			<livewire:follow-user :profile="$user->profile" />
+		@else
+			<x-icon-link text="Edit Profile" class="py-1 px-2 mx-auto w-32" href="{{ route('profiles.edit', ['profile' => $user->profile]) }}">
+				<svg class="w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+				</svg>
+			</x-icon-link>
+		@endcan
 
+		{{-- other profile info --}}
+		<div class="p-2 my-2">
+
+		</div>
+		{{-- End -> other profile info--}}
+
+		<hr class="my-2" />
 		<x-menu />
 		
 	</x-slot>
