@@ -11,6 +11,11 @@ class Profile extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'education' => 'array',
+        'work' => 'array',
+    ];
+
     public function user()
     {
     	return $this->belongsTo(User::class);
