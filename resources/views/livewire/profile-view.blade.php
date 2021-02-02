@@ -75,6 +75,15 @@
 				<div class="bg-gray-100 p-2 rounded-md text-center my-3">No Followers</div>
 			@endforelse	
 
+			@if ($user->profile->followers_count)
+			<a href="#" class="my-1 flex items-base">
+				<svg class="w-4 inline-block mr-2 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+				</svg>
+				<div class="text-sm text-gray-700">See all followers...</div>
+			</a>
+			@endif
+
 			<hr class="my-3">
 
 			<h1 class="text-gray-700 text-lg font-bold mb-2">Followings ({{ number_format($user->followings_count) }}) </h1>
@@ -93,6 +102,15 @@
 			@empty
 				<div class="bg-gray-100 p-2 rounded-md text-center my-3">No Followings</div>
 			@endforelse	
+
+			@if ($user->profile->followI_count)
+			<a href="#" class="my-1 flex items-base">
+				<svg class="w-4 inline-block mr-2 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+				</svg>
+				<div class="text-sm text-gray-700">See all followings...</div>
+			</a>
+			@endif
 		</div>
 	</x-slot>
 
