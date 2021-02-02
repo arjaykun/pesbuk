@@ -7,6 +7,8 @@ use App\Http\Livewire\ShowPosts;
 use App\Http\Livewire\ViewPost;
 use App\Http\Livewire\ProfileView;
 use App\Http\Livewire\EditProfile;
+use App\Http\Livewire\ShowFollowers;
+use App\Http\Livewire\ShowFollowings;
 
 
 Route::group(['middleware' => 'auth'], function() {
@@ -18,9 +20,10 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('profile/{user}', ProfileView::class)->name('user.profile');
 
 	Route::get('profile/{profile}/edit', EditProfile::class)->name('profiles.edit');
+	
+	Route::get('profile/{user}/followers', ShowFollowers::class)->name('user.followers');
+
+	Route::get('profile/{user}/followings', ShowFollowings::class)->name('user.followings');
 
 });
 
-// Route::get('/', [PostController::class, 'index'])->middleware('auth')->name('posts.index');
-
-// Route::resource('posts', PostController::class)->except('index')->middleware('auth');

@@ -61,7 +61,7 @@
 			<h1 class="text-gray-700 text-lg font-bold mb-2">Followers ({{ number_format($user->profile->followers_count) }}) </h1>
 
 			@forelse($user->profile->followers as $follower)
-				<div class="w-full py-0.5 px-1 bg-gray-100 rounded-md mb-1 flex justify-between items-center">
+				<div class="w-full py-0.5 px-1 rounded-md mb-1 flex justify-between items-center">
 					<div>
 						<x-user-image size="xs" :user="$follower" />
 						<x-user-name :user="$follower" />
@@ -76,11 +76,11 @@
 			@endforelse	
 
 			@if ($user->profile->followers_count)
-			<a href="#" class="my-1 flex items-base">
-				<svg class="w-4 inline-block mr-2 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+			<a href="{{ route('user.followers', ['user' => $user->id]) }}" class="my-2 flex items-base focus:outline-none">
+				<svg class="w-4 inline-block mr-2 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 				  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
 				</svg>
-				<div class="text-sm text-gray-700">See all followers...</div>
+				<div class="text-sm text-gray-700">See All Followers</div>
 			</a>
 			@endif
 
@@ -89,7 +89,7 @@
 			<h1 class="text-gray-700 text-lg font-bold mb-2">Followings ({{ number_format($user->followings_count) }}) </h1>
 
 			@forelse($user->followings as $following)
-				<div class="w-full py-0.5 px-1 bg-gray-100 rounded-md mb-1 flex justify-between items-center">
+				<div class="w-full py-0.5 px-1 rounded-md mb-1 flex justify-between items-center">
 					<div>
 						<x-user-image size="xs" :user="$following->user" />
 						<x-user-name :user="$following->user" />
@@ -103,12 +103,12 @@
 				<div class="bg-gray-100 p-2 rounded-md text-center my-3">No Followings</div>
 			@endforelse	
 
-			@if ($user->profile->followI_count)
-			<a href="#" class="my-1 flex items-base">
-				<svg class="w-4 inline-block mr-2 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+			@if ($user->followings_count)
+			<a href="{{ route('user.followings', ['user' => $user->id]) }}" class="my-2 flex items-base focus:outline-none">
+				<svg class="w-4 inline-block mr-2 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 				  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
 				</svg>
-				<div class="text-sm text-gray-700">See all followings...</div>
+				<div class="text-sm text-gray-700">See All Followings</div>
 			</a>
 			@endif
 		</div>

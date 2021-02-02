@@ -11,8 +11,8 @@
 		@endif
 </h1>
 
-<div class="px-2 pb-2 text-sm rounded-md text-gray-600 text-center">
-	"{{ $user->profile->bio }}""
+<div class="pb-2 text-sm rounded-md text-gray-600 text-center">
+{{ $user->profile->bio }}
 </div>
 
 @can('can-follow', $user->profile)
