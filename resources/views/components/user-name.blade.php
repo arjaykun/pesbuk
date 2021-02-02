@@ -13,6 +13,6 @@
 @endphp
  
 
-<a href="{{ route('user.profile', ['user' => $user]) }}" class="text-gray-700 font-bold {{ $textSize}} hover:text-gray-500">
+<a href="{{ route('user.profile', ['user' => $user]) }}" class="text-gray-700 font-bold {{ $textSize}} hover:text-gray-500 focus:outline-none">
 	{{ $user->name }} 
 </a>

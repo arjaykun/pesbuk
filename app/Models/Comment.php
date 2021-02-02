@@ -26,12 +26,12 @@ class Comment extends Model
 
     public function user() 
     {   	
-    	return $this->belongsTo(User::class);
+    	return $this->belongsTo(User::class)->select('id', 'name', 'profileImage');
     }
 
     public function replies()
     {
-        return $this->hasMany(Reply::class)->withCount('likes');
+        return $this->hasMany(Reply::class)->with('user')->withCount('likes');
     }
 
 }

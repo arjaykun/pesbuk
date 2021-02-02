@@ -39,8 +39,8 @@
 
   <x-slot name="optional">
     {{-- reply preview --}}
-    @php
-      $lastReply = $comment->replies->last();
+    {{-- @php
+      $lastReply = $comment->replies->count() > 0 ? $comment->replies[0] : null;
     @endphp
     @if($lastReply)
       <div class="cursor-pointer ml-10 text-gray-500 text-xs my-1 hidden" :class="{'hidden':showReplies, 'block':!showReplies}" @click="showReplies=true">
@@ -49,7 +49,7 @@
         <span>{{ Str::of($lastReply->reply)->limit(10, '...') }}</span>
         <span>{{ $lastReply->created_at->diffForHumans() }}</span>
       </div>
-    @endif
+    @endif --}}
     {{-- End -> reply preview --}}
     <x-replies.container :comment="$comment" />
   </x-slot>

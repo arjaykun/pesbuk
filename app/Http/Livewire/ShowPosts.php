@@ -17,7 +17,7 @@ class ShowPosts extends Component
     {		
     	$posts = Post::orderBy('created_at', 'DESC')
                     ->limit($this->count)
-					->with(['user','comments.user', 'comments.replies.user'])
+					->with('user','comments')
 					->withCount('likes')
                     ->get();
 

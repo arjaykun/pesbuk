@@ -24,10 +24,20 @@ class ProfileView extends Component
     {	  
     	$posts = $this->user->posts()
 			    ->orderBy('created_at', 'DESC')
-                
-				->with(['user','comments.user', 'comments.replies.user'])
-				->withCount('likes')
+				->with(['user','comments'])
+                ->withCount('likes')
                 ->get();
+        
+        $this->user->load([
+            'profile.followers' => function($query){
+                $query->limit(6);
+            }, 
+            'followings' => function($query) {
+                $query->limit(6);
+            }
+        ]);
+
+        $this->user->loadCount('followings');
 
         return view('livewire.profile-view', [
                     'user' => $this->user,

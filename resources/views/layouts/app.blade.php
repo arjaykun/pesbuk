@@ -32,8 +32,10 @@
       {{ $slot }}
     </div>  
 
-    <div class="lg:w-1/3 w-0 h-auto">
-      
+    <div class="lg:w-1/3 lg:flex hidden w-0 h-auto justify-start pl-2">
+      <div class="w-52 bg-white rounded-md px-2 h-auto">
+        {{ $rightbar ?? '' }}
+      </div>
     </div>
   </div>
 

@@ -16,7 +16,7 @@ class Post extends Model
 
     public function user() 
     {
-    	return $this->belongsTo(User::class);
+    	return $this->belongsTo(User::class)->select('id', 'name', 'profileImage');
     }
 
     public function likes() 
@@ -26,7 +26,7 @@ class Post extends Model
 
     public function comments() 
     {
-        return $this->hasMany(Comment::class)->withCount('likes');
+        return $this->hasMany(Comment::class)->with('user', 'replies')->withCount('likes');
     }
 
 }

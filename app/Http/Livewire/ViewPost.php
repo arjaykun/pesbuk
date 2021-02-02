@@ -21,9 +21,10 @@ class ViewPost extends Component
 
     public function render()
     {	
-			$post = $this->post;
-			$post->load(['user','comments.user', 'comments.replies.user']);
-			$post->loadCount('likes');
+	  $post = $this->post;
+
+	  $post->load(['user','comments']);
+      $post->loadCount('likes');
 
       return view('livewire.view-post', ['post' => $post])
         					->layout('layouts.app');

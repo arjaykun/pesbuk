@@ -89,10 +89,10 @@ class EditProfile extends Component
     			'required',
     			Rule::in('In relationship', 'Single', 'Married', 'Divorced', 'Engaged', 'Annuled', 'It\'s complicated', 'Open for dating')
     		],
-    		'basic.nickname' => 'max:20',
-    		'basic.mobile' => 'size:11',
-    		'basic.website' => 'url|max:255',
-    		'basic.location' => 'max:255',
+    		'basic.nickname' => 'nullable|max:20',
+    		'basic.mobile' => 'nullable|size:11',
+    		'basic.website' => 'nullable|url|max:255',
+    		'basic.location' => 'nullable|max:255',
     	]);
 
     	$this->profile->update([

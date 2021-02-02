@@ -51,33 +51,50 @@
 
 	{{-- Sidebar --}}
 	<x-slot name="sidebar" >
-		<div class="py-2 w-full" wire:ignore>
-			<img src="{{ asset('storage/profiles/'.$user->profileImage) }}" alt="Profile Image" class="rounded-full w-40 h-40 mx-auto">
-		</div>
-
-		<h1 class="text-lg font-bold text-center text-gray-700">{{ $user->name }}</h1>
-		
-		@can('can-follow', $user->profile)
-			<livewire:follow-user :profile="$user->profile" />
-		@else
-			<x-icon-link text="Edit Profile" class="py-1 px-2 mx-auto w-32" href="{{ route('profiles.edit', ['profile' => $user->profile]) }}">
-				<svg class="w-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-				  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-				</svg>
-			</x-icon-link>
-		@endcan
-
-		{{-- other profile info --}}
-		<div class="p-2 my-2">
-
-		</div>
-		{{-- End -> other profile info--}}
-
-		<hr class="my-2" />
-		<x-menu />
-		
+		<x-profile-sidebar :user="$user" />
 	</x-slot>
 	{{-- End -> Sidebar --}}
+
+
+	<x-slot name="rightbar">
+		<div class="p-2">
+			<h1 class="text-gray-700 text-lg font-bold mb-2">Followers ({{ number_format($user->profile->followers_count) }}) </h1>
+
+			@forelse($user->profile->followers as $follower)
+				<div class="w-full py-0.5 px-1 bg-gray-100 rounded-md mb-1 flex justify-between items-center">
+					<div>
+						<x-user-image size="xs" :user="$follower" />
+						<x-user-name :user="$follower" />
+					</div>
+
+					@can('can-follow', $follower->profile)
+						<livewire:follow-user :profile="$follower->profile" :icon="true" />
+					@endcan
+				</div>
+			@empty
+				<div class="bg-gray-100 p-2 rounded-md text-center my-3">No Followers</div>
+			@endforelse	
+
+			<hr class="my-3">
+
+			<h1 class="text-gray-700 text-lg font-bold mb-2">Followings ({{ number_format($user->followings_count) }}) </h1>
+
+			@forelse($user->followings as $following)
+				<div class="w-full py-0.5 px-1 bg-gray-100 rounded-md mb-1 flex justify-between items-center">
+					<div>
+						<x-user-image size="xs" :user="$following->user" />
+						<x-user-name :user="$following->user" />
+					</div>
+
+					@can('can-follow', $following)
+						<livewire:follow-user :profile="$following" :icon="true" />
+					@endcan
+				</div>
+			@empty
+				<div class="bg-gray-100 p-2 rounded-md text-center my-3">No Followings</div>
+			@endforelse	
+		</div>
+	</x-slot>
 
 
 	@push('scripts')

@@ -10,9 +10,13 @@ class FollowUser extends Component
 
 	public $follow;
 
-	public function mount()
+    public $icon;
+
+	public function mount($icon = false)
 	{
 		$this->follow = $this->profile->hasFollowed();
+        
+        $this->icon = $icon;
 	}
 
     public function render()

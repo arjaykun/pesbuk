@@ -53,10 +53,10 @@ class User extends Authenticatable
 
     public function profile() 
     {
-        return $this->hasOne(Profile::class);
+        return $this->hasOne(Profile::class)->withCount('followers');
     }
 
-    public function following()
+    public function followings()
     {
         return $this->belongsToMany(Profile::class)->withTimestamps();
     }
