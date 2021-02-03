@@ -3,8 +3,10 @@
 <div class="mt-2 hidden overflow-hidden ml-9 bg-gray-100 rounded-md p-2" :class="{'block':showReplies, 'hidden': !showReplies}">
   
   
-  @forelse($comment->replies as $reply)  
-    <x-replies.card :reply="$reply" />
+  @forelse($comment->replies as $reply)
+    <div wire:key="$reply->id">  
+      <x-replies.card :reply="$reply" />
+    </div>
   @empty
     <div class="text-sm w-full text-center text-gray-700 mb-2">There's no reply in here.</div>
   @endforelse

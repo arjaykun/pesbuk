@@ -5,7 +5,7 @@
   
   @forelse($post->comments as $comment)  
     {{-- wrap every comment-card with an x-data for their own to show/hide their respective replies --}}
-     <div x-data="{showReplies:false}">
+     <div x-data="{showReplies:false}" wire:key="$comment->id">
         <x-comments.card :comment="$comment" />
      </div>
   @empty

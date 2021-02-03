@@ -39,17 +39,21 @@
 
   <x-slot name="optional">
     {{-- reply preview --}}
-    {{-- @php
-      $lastReply = $comment->replies->count() > 0 ? $comment->replies[0] : null;
-    @endphp
-    @if($lastReply)
-      <div class="cursor-pointer ml-10 text-gray-500 text-xs my-1 hidden" :class="{'hidden':showReplies, 'block':!showReplies}" @click="showReplies=true">
-        <x-user-image size="xs" :user="$lastReply->user"/>
-        <span class="text-gray-700 font-semibold">{{ $lastReply->user->name }}</span>
-        <span>{{ Str::of($lastReply->reply)->limit(10, '...') }}</span>
-        <span>{{ $lastReply->created_at->diffForHumans() }}</span>
-      </div>
-    @endif --}}
+    <div>
+      @php
+        $lastReply = $comment->replies->count() > 0 ? $comment->replies[0] : null;
+      @endphp
+    </div>
+    <div>
+      @if($lastReply)
+        <div class="cursor-pointer ml-10 text-gray-500 text-xs my-1 hidden" :class="{'hidden':showReplies, 'block':!showReplies}" @click="showReplies=true">
+          <x-user-image size="xs" :user="$lastReply->user"/>
+          <span class="text-gray-700 font-semibold">{{ $lastReply->user->name }}</span>
+          <span>{{ Str::of($lastReply->reply)->limit(10, '...') }}</span>
+          <span>{{ $lastReply->created_at->diffForHumans() }}</span>
+        </div>
+      @endif
+    </div>
     {{-- End -> reply preview --}}
     <x-replies.container :comment="$comment" />
   </x-slot>

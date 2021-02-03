@@ -48,26 +48,28 @@
 	{{-- loading overlay if wire:loading is true --}}
 	<x-loading-overlay />
 
-	@push('scripts')
-		<script>
-			const lastPost = document.querySelector('#lastPost');
-			const options = {
-				root: null,
-				threshold: 1,
-				rootMargin: '0px'
-			}
+	@if ($posts->count())
+		@push('scripts')
+			<script>
+				const lastPost = document.querySelector('#lastPost');
+				const options = {
+					root: null,
+					threshold: 1,
+					rootMargin: '0px'
+				}
 
-			const observer =  new IntersectionObserver( entries => {
-				entries.forEach(entry => {
-					if(entry.isIntersecting) {
-						@this.scroll()
-					}
-				})
-			}, options)
+				const observer =  new IntersectionObserver( entries => {
+					entries.forEach(entry => {
+						if(entry.isIntersecting) {
+							@this.scroll()
+						}
+					})
+				}, options)
 
-			observer.observe(lastPost);
-		</script>
-	@endpush
+				observer.observe(lastPost);
+			</script>
+		@endpush
+	@endif
 
 </div>
 {{-- End  -> Main Section --}}
