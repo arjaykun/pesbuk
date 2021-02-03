@@ -61,15 +61,11 @@
 			<h1 class="text-gray-700 text-lg font-bold mb-2">Followers ({{ number_format($user->profile->followers_count) }}) </h1>
 
 			@forelse($user->profile->followers as $follower)
-				<div class="w-full py-0.5 px-1 rounded-md mb-1 flex justify-between items-center">
+				<div class="w-full py-0.5 px-1 rounded-md mb-1">
 					<div>
 						<x-user-image size="xs" :user="$follower" />
 						<x-user-name :user="$follower" />
 					</div>
-
-					@can('can-follow', $follower->profile)
-						<livewire:follow-user :profile="$follower->profile" :icon="true" />
-					@endcan
 				</div>
 			@empty
 				<div class="bg-gray-100 p-2 rounded-md text-center my-3">No Followers</div>
@@ -89,15 +85,11 @@
 			<h1 class="text-gray-700 text-lg font-bold mb-2">Followings ({{ number_format($user->followings_count) }}) </h1>
 
 			@forelse($user->followings as $following)
-				<div class="w-full py-0.5 px-1 rounded-md mb-1 flex justify-between items-center">
+				<div class="w-full py-0.5 px-1 rounded-md mb-1 ">
 					<div>
 						<x-user-image size="xs" :user="$following->user" />
 						<x-user-name :user="$following->user" />
 					</div>
-
-					@can('can-follow', $following)
-						<livewire:follow-user :profile="$following" :icon="true" />
-					@endcan
 				</div>
 			@empty
 				<div class="bg-gray-100 p-2 rounded-md text-center my-3">No Followings</div>
@@ -114,27 +106,28 @@
 		</div>
 	</x-slot>
 
+	@if ($posts->count())
+		@push('scripts')
+			<script>
+				const lastPost = document.querySelector('#lastPost');
+				const options = {
+					root: null,
+					threshold: 1,
+					rootMargin: '0px'
+				}
 
-	@push('scripts')
-		<script>
-			const lastPost = document.querySelector('#lastPost');
-			const options = {
-				root: null,
-				threshold: 1,
-				rootMargin: '0px'
-			}
+				const observer =  new IntersectionObserver( entries => {
+					entries.forEach(entry => {
+						if(entry.isIntersecting) {
+							@this.scroll()
+						}
+					})
+				}, options)
 
-			const observer =  new IntersectionObserver( entries => {
-				entries.forEach(entry => {
-					if(entry.isIntersecting) {
-						@this.scroll()
-					}
-				})
-			}, options)
-
-			observer.observe(lastPost);
-		</script>
-	@endpush
+				observer.observe(lastPost);
+			</script>
+		@endpush
+	@endif
 
 </div>
 {{-- End  -> Main Section --}}
