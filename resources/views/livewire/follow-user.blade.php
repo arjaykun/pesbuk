@@ -1,4 +1,5 @@
 <div>
+	<div>
 	@if (!$follow)	
 		<x-forms.icon-button :text="($icon ? '' : 'Follow')" :bordered="!$icon" class="{{ $icon ? '' : 'p-2 mx-auto'}}" wire:click="follow">	
 				<svg class="w-4 mr-2 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -12,5 +13,6 @@
 				</svg>
 		</x-forms.icon-button>
 	@endif
+	</div>
 </div>
 

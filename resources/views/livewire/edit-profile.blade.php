@@ -1,5 +1,10 @@
 <div class="w-full">
-	<x-slot name="sidebar"></x-slot>
+	
+	{{-- Sidebar --}}
+	<x-slot name="sidebar" >
+		<x-profile-sidebar :user="$profile->user" />
+	</x-slot>
+	{{-- End -> Sidebar --}}
 
 	<div class="bg-white rounded-md p-2">
 		<h1 class="text-xl text-gray-700 font-bold border-b-2 border-gray-300 pb-2 mb-2">Edit Profile</h1>

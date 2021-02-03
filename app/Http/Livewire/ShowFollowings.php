@@ -5,27 +5,44 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\User;
 use Livewire\WithPagination;
+use Illuminate\Database\Eloquent\Builder;
 
 class ShowFollowings extends Component
 {		
-		use WithPagination;
+	use WithPagination;
 
-    public User $user;
+  public User $user;
 
-		public function mount(User $user)
-		{
-			$this->user = $user;
-		}
+  public $search;
 
-    public function render()
-    {		
-    		$this->user->loadCount('followings');
-    		
-    		$followings = $this->user->followings()->with(['user' => function($query) {
-    			$query->select('id', 'name', 'profileImage');
-    		}])->paginate(10);
+  protected $queryString = [ 'search' => ['except' => '']];
+
+	public function mount(User $user)
+	{
+		$this->user = $user;
+
+    $this->fill(request()->only('search'));
+	}
+
+	public function updatingSearch()
+  {
+     $this->resetPage();
+  }
+
+  public function render()
+  {		
+		$this->user->loadCount('followings');
+		
+		$followings = $this->user->followings()
+			->whereHas('user', function(Builder $query) {
+				$query->where('name', 'LIKE', '%'.$this->search.'%');
+			})
+			->with(['user' => function($query) {
+				$query->select('name', 'id', 'profileImage');
+			}])
+			->paginate(10);
 
 
-        return view('livewire.show-followings', ['user' => $this->user, 'followings' => $followings]);
-    }
+		return view('livewire.show-followings', ['user' => $this->user, 'followings' => $followings]);
+  }
 }
