@@ -6,7 +6,7 @@
 	@enderror
 
 	{{-- Create Post Form --}}
-	<div class="bg-white rounded-md p-2">
+	<div class="bg-white rounded-md p-2 mb-2">
 		<form wire:submit.prevent="createPost" wire:ignore>
 			<x-user-name />
 			<textarea 

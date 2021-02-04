@@ -1,6 +1,6 @@
 @props(['post', 'isLast' => null])
 
-<div class="bg-white mt-2 rounded p-2" x-data="{showOption:false, showComments:false}" @if($isLast) id="lastPost"  @endif>
+<div class="bg-white mb-2 rounded p-2" x-data="{showOption:false, showComments:false}" @if($isLast) id="lastPost"  @endif>
   {{-- Post Header --}}
   <div class="flex items-center justify-between">
     {{-- Post Image and Name --}}

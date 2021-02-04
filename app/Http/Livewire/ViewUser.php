@@ -6,14 +6,14 @@ use Livewire\Component;
 
 class ViewUser extends Component
 {		
-		public \App\Models\User $user; 
+	public \App\Models\User $user; 
 
-		public $follow;
+	public $follow;
 
-		public function mount()
-		{  
-			$this->follow = $this->user->profile->hasFollowed();
-	  }
+	public function mount()
+	{  
+		$this->follow = $this->user->profile->hasFollowed();
+	}
 
     public function follow()
     {
