@@ -12,7 +12,8 @@ class SearchPage extends Component
     
 		public $q;
 
-		public $limit = 6;
+		public $people_limit = 4;
+		public $posts_limit = 4;
 
 		protected $queryString = [ 'q' => ['except' => '']];
 
@@ -23,22 +24,32 @@ class SearchPage extends Component
 
     public function render()
     {		
-    		if($this->q == '')
-    			return view('livewire.search-page', ['users' => [], 'posts' => []])->layout('layouts.app');
+		if($this->q == '')
+			return view('livewire.search-page', ['users' => [], 'posts' => []])->layout('layouts.app');
 
-    		$users = \App\Models\User::select('id', 'name', 'profileImage')
-    														->with('profile:user_id,id,work,education')
-												    		->where('name', 'like', '%'.$this->q.'%')
-												    		->limit($this->limit)
-												    		->get();
+		$users = \App\Models\User::select('id', 'name', 'profileImage')
+					->with('profile:user_id,id,work,education')
+		    		->where('name', 'like', '%'.$this->q.'%')
+		    		->limit($this->people_limit)
+		    		->get();
 
-				$posts = \App\Models\Post::orderBy('created_at', 'DESC')
+		$posts = \App\Models\Post::orderBy('created_at', 'DESC')
                     ->with('user','comments')
-										->withCount('likes')
-										->where('post', 'like', '%'.$this->q.'%')
-										->limit($this->limit)
+					->withCount('likes')
+					->where('post', 'like', '%'.$this->q.'%')
+					->limit($this->posts_limit)
                     ->get();							    		
 
         return view('livewire.search-page', compact('users', 'posts'))->layout('layouts.app');
+    }
+
+    public function seeMorePeople()
+    {
+    	$this->people_limit += $this->people_limit;
+    }
+
+    public function seeMorePosts()
+    {
+    	$this->posts_limit += $this->posts_limit;
     }
 }

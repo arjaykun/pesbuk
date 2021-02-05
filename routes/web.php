@@ -11,6 +11,8 @@ use App\Http\Livewire\EditProfile;
 use App\Http\Livewire\ShowFollowers;
 use App\Http\Livewire\ShowFollowings;
 use App\Http\Livewire\SearchPage;
+use App\Http\Livewire\SearchPeople;
+use App\Http\Livewire\SearchPosts;
 
 
 Route::group(['middleware' => 'auth'], function() {
@@ -30,6 +32,8 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('profile/{user}/followings', ShowFollowings::class)->name('user.followings');
 
 	Route::get('search', SearchPage::class)->name('search');
+	Route::get('search/people', SearchPeople::class)->name('search.people');
+	Route::get('search/posts', SearchPosts::class)->name('search.posts');
 
 });
 
