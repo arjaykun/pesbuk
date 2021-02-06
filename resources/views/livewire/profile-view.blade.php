@@ -1,6 +1,6 @@
 {{-- Main Section --}}
 <div x-data class="w-full">	
-	
+	{{-- mobile  info viewer --}}
 	<div class="lg:hidden block mb-2 mt-20">
 		<div class="bg-white w-full">
 
@@ -88,7 +88,24 @@
 				</a>			
 			</div>
 		</div>
+
+		<div class="mt-2 w-full grid grid-cols-2 gap-1">
+			<a href="{{ route('user.followers', ['user' => $user]) }}" class="p-2 bg-white rounded-md focus:outline-none">
+				<span class="text-sm text-purple-500 font-semibold">Followers</span>
+				<p class="text-xl w-full py-1 text-center font-extrabold">
+					{{ $user->profile->followers_count }}
+				</p>
+			</a>
+			<a href="{{ route('user.followings', ['user' => $user]) }}" class="p-2 bg-white rounded-md focus:outline-none">
+				<span class="text-sm text-purple-500 font-semibold">Following</span>
+				<p class="text-xl w-full py-1 text-center font-extrabold">
+					{{ $user->followings_count }}
+				</p>
+			</a>
+		</div>
+
 	</div>
+	{{-- End -> mobile profile info viewer --}}
 
 	@cannot('can-follow', $user->profile)
 		@error('newPost') 

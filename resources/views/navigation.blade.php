@@ -42,9 +42,10 @@
 
   {{-- side menu --}}
 
-  <div class="fixed top-0 left-0 h-full shadow-md bg-white text-gray-500 overflow-hidden z-10 w-0 transition-all sm:duration-300 ease-in"  :class="{'w-60':showSideMenu, 'w-0':!showSideMenu}"> 
-    <div class="flex items-center">
-      <button class="text-gray-500 hover:text-gray-700 focus:outline-none px-5 py-3" @click="showSideMenu=false">
+  <div class="fixed top-0 left-0 h-full shadow-md bg-white text-gray-500 overflow-hidden z-10 w-0overflow-y-hidden transition-all sm:duration-300 ease-in"  :class="{'w-60':showSideMenu, 'w-0':!showSideMenu}"> 
+
+    <div class="flex items-center px-3 ">
+      <button class="text-gray-500 hover:text-gray-700 focus:outline-none py-3" @click="showSideMenu=false">
         <svg class="w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
@@ -56,9 +57,9 @@
     </div>
 
     <hr />
-
-    <x-menu />
-
+    <div class="px-3">
+      <x-menu />
+    </div>
   </div>
 </nav>
 
