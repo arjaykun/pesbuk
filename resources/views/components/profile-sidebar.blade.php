@@ -35,7 +35,7 @@
 			@php
 				$work = head($user->profile->work);
 			@endphp
-			<div class="text-sm text-gray-700 inline-block">Worked as <span class="font-semibold">{{ $work['position'] ?? '' }}</span> at <span class="font-semibold">{{ $work ['company']}}</span></div>
+			<div class="text-sm text-gray-700">Worked as <span class="font-semibold">{{ $work['position'] ?? '' }}</span> at <span class="font-semibold">{{ $work ['company']}}</span></div>
 		</div>
 	@endif
 	
