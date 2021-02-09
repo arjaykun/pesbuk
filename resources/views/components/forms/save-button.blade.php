@@ -1,5 +1,5 @@
 <div>
-	<x-forms.icon-button text="" :bordered="true" class="px-2 text-gray-500" disabled wire:loading wire:target="updateBio, updateBasicInfo, updateEducation, updateWork, updateAccount">
+	<x-forms.icon-button text="" :bordered="true" class="px-2 text-gray-500" disabled wire:loading wire:target="updateBio, updateBasicInfo, updateEducation, updateWork, updateAccount, updatePassword">
 			<img src="{{ asset('loading-dark.svg') }}" alt="loading..." class="w-8" >
 	</x-forms.icon-button> 
 	<div wire:loading.class="hidden" >

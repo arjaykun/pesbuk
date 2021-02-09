@@ -48,7 +48,7 @@
 	
 			 	<div>
 			 		<x-forms.label text="E-mail" />
-			 		<x-forms.input type="email" placeholder="Your e-mail" name="email" value="{{ old('name') }}" />
+			 		<x-forms.input type="email" placeholder="Your e-mail" name="email" value="{{ old('email') }}" />
 			 	</div>
 
 			 	<div>
