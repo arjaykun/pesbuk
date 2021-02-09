@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Post;
+use App\Notifications\LikeNotification;
 
 trait PostFunctions
 {
@@ -50,6 +51,9 @@ trait PostFunctions
   public function likePost(Post $post)
   {  	
   	$post->likedBy(auth()->user()->id, 'post');
+
+    if(auth()->user()->id !== $post->user->id)
+      $post->user->notify(new LikeNotification(auth()->user(), $post->id, 'post'));
   }
 
   public function unlikePost(Post $post)

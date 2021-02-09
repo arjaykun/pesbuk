@@ -7,14 +7,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class CommentNotification extends Notification
+class ReplyNotification extends Notification
 {
     use Queueable;
 
     public $user;
 
     public $post_id;
-    
     /**
      * Create a new notification instance.
      *
@@ -59,7 +58,7 @@ class CommentNotification extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
+         return [
             'sender' => [
                 'id'    => $this->user->id,
                 'name'  => $this->user->name,

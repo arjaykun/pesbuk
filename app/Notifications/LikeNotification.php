@@ -7,23 +7,26 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class CommentNotification extends Notification
+class LikeNotification extends Notification
 {
     use Queueable;
 
     public $user;
 
-    public $post_id;
+    public $object_id;
+
+    public $type;
     
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($user, $post_id)
+    public function __construct($user, $post_id, $type)
     {
         $this->user = $user;
         $this->post_id = $post_id;
+        $this->type = $type;
     }
 
     /**
@@ -38,20 +41,6 @@ class CommentNotification extends Notification
     }
 
     /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
-    }
-
-    /**
      * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
@@ -60,12 +49,13 @@ class CommentNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'sender' => [
-                'id'    => $this->user->id,
-                'name'  => $this->user->name,
+            'sender'    => [
+                'id'        => $this->user->id,
+                'name'      => $this->user->name,
                 'image' => $this->user->profileImage,
             ],
-            'post'   => $this->post_id
+            'post'      => $this->post_id,
+            'type'      => $this->type
         ];
     }
 }

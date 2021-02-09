@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Comment;
 use App\Models\Reply;
+use App\Notifications\LikeNotification;
+use App\Notifications\ReplyNotification;
 
 trait Repliable 
 {
@@ -22,6 +24,9 @@ trait Repliable
 			'user_id' => auth()->user()->id,
 			'reply' => $this->newReply,
  		]);
+
+    if(auth()->user()->id !== $comment->user->id)
+      $comment->user->notify( new ReplyNotification(auth()->user(), $comment->post->id));
 
  		$this->newReply = null;
 	}
@@ -52,15 +57,18 @@ trait Repliable
   	$this->editReplyForm = true;
   }
 
-   public function likeReply(Reply $reply)
-    {  	
-    	$reply->likedBy(auth()->user()->id, 'reply');
-    }
+  public function likeReply(Reply $reply)
+  {  	
+  	$reply->likedBy(auth()->user()->id, 'reply');
 
-    public function unlikeReply(Reply $reply)
-    {
-    	$reply->likedBy(auth()->user()->id, 'reply', false);
-    }
+    if(auth()->user()->id !== $reply->user->id)
+      $reply->user->notify(new LikeNotification(auth()->user(), $reply->comment->post->id, 'reply'));
+  }
+
+  public function unlikeReply(Reply $reply)
+  {
+  	$reply->likedBy(auth()->user()->id, 'reply', false);
+  }
 
 }
 

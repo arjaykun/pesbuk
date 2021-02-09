@@ -13,6 +13,7 @@ use App\Http\Livewire\SearchPeople;
 use App\Http\Livewire\SearchPosts;
 use App\Http\Livewire\ChangeProfilePicture;
 use App\Http\Livewire\ShowSettings;
+use App\Http\Livewire\ShowNotifications;
 
 
 Route::group(['middleware' => 'auth'], function() {
@@ -38,6 +39,8 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('search/posts', SearchPosts::class)->name('search.posts');
 
 	Route::get('settings', ShowSettings::class)->name('settings.index');
+
+	Route::get('notifications', ShowNotifications::class)->name('notifications.index');
 
 });
 

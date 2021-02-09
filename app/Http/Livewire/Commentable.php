@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Comment;
 use App\Models\Post;
+use App\Notifications\CommentNotification;
+use App\Notifications\LikeNotification;
 
 trait Commentable 
 {
@@ -22,6 +24,9 @@ trait Commentable
 			'user_id' => auth()->user()->id,
 			'comment' => $this->newComment,
  		]);
+
+    if(auth()->user()->id !== $post->user->id)
+      $post->user->notify(new CommentNotification(auth()->user(), $post->id));
 
  		$this->newComment = null;
 	}
@@ -60,15 +65,18 @@ trait Commentable
   	$this->editCommentForm = true;
   }
 
-   public function likeComment(Comment $comment)
-    {  	
-    	$comment->likedBy(auth()->user()->id, 'comment');
-    }
+  public function likeComment(Comment $comment)
+  {  	
+  	$comment->likedBy(auth()->user()->id, 'comment');
 
-    public function unlikeComment(Comment $comment)
-    {
-    	$comment->likedBy(auth()->user()->id, 'comment', false);
-    }
+    if(auth()->user()->id !== $comment->user->id)
+      $comment->user->notify(new LikeNotification(auth()->user(), $comment->post->id, 'comment'));
+  }
+
+  public function unlikeComment(Comment $comment)
+  {
+  	$comment->likedBy(auth()->user()->id, 'comment', false);
+  }
 
 
 
