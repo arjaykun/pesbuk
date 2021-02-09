@@ -61,7 +61,7 @@
 
   {{-- side menu --}}
 
-  <div class="fixed top-0 left-0 h-full shadow-md bg-white text-gray-500 overflow-hidden z-10 overflow-y-hidden hidden transition-all sm:duration-300 ease-in"  :class="{'w-60':showSideMenu, 'w-0':!showSideMenu}"> 
+  <div class="fixed top-0 left-0 h-full shadow-md bg-white text-gray-500 overflow-hidden z-10 hidden transition-all sm:duration-300 ease-in"  :class="{'w-60':showSideMenu, 'w-0':!showSideMenu}"> 
 
     <div class="flex items-center px-3 ">
       <button class="text-gray-500 hover:text-gray-700 focus:outline-none py-3" @click="showSideMenu=false">

@@ -23,7 +23,7 @@
       @if (!isset($sidebar))
         @include('default-sidebar')
       @else
-        {{ $sidebar }}
+        {{ $sidebar ?? '' }}
       @endif
       </div>
     </div>
