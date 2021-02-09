@@ -50,7 +50,11 @@ class ChangeProfilePicture extends Component
            
             if($this->image->storeAs('public/profiles', $fileName)) {
 
-                Storage::delete('public/profiles/'.$old_filename);
+                if($old_filename !== 'default.png') {
+
+                    Storage::delete('public/profiles/'.$old_filename);
+                    
+                }
 
             }
 
