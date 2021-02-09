@@ -12,6 +12,7 @@ use App\Http\Livewire\SearchPage;
 use App\Http\Livewire\SearchPeople;
 use App\Http\Livewire\SearchPosts;
 use App\Http\Livewire\ChangeProfilePicture;
+use App\Http\Livewire\ShowSettings;
 
 
 Route::group(['middleware' => 'auth'], function() {
@@ -35,6 +36,8 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('search', SearchPage::class)->name('search');
 	Route::get('search/people', SearchPeople::class)->name('search.people');
 	Route::get('search/posts', SearchPosts::class)->name('search.posts');
+
+	Route::get('settings', ShowSettings::class)->name('settings.index');
 
 });
 
