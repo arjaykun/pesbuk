@@ -6,21 +6,21 @@ use Livewire\Component;
 
 class SearchPage extends Component
 {	
-		use Commentable;
+	use Commentable;
     use Repliable;
     use PostFunctions;
     
-		public $q;
+	public $q;
 
-		public $people_limit = 4;
-		public $posts_limit = 4;
+	public $people_limit = 4;
+	public $posts_limit = 4;
 
-		protected $queryString = [ 'q' => ['except' => '']];
+	protected $queryString = [ 'q' => ['except' => '']];
 
-		public function mount()
-		{
-			$this->fill(['q' => request()->get('q')]);
-		}
+	public function mount()
+	{
+		$this->fill(['q' => request()->get('q')]);
+	}
 
     public function render()
     {		

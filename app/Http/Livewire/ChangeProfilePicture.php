@@ -12,7 +12,7 @@ class ChangeProfilePicture extends Component
 {	
 	use WithFileUploads;
 
-	public User $user;
+	public $user;
 
 	public $image;	
 

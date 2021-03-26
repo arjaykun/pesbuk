@@ -12,9 +12,10 @@ trait Commentable
 
 	public $newComment, $editComment;
 
-	public $deleteCommentConfirm, $editCommentForm = false;
+	public $deleteCommentConfirm = false;
+	public $editCommentForm = false;
 
-	public Comment $selectedComment;
+	public $selectedComment;
 
 	public function createComment(Post $post)
 	{

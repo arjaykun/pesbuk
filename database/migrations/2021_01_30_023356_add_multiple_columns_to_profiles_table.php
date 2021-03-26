@@ -12,8 +12,8 @@ class AddMultipleColumnsToProfilesTable extends Migration
             $table->text('work')->nullable();
             $table->text('education')->nullable();
             $table->text('location')->nullable();
-            $table->text('gender')->default('Secret');
-            $table->text('relationship')->default('Single');
+            $table->string('gender')->default('Secret');
+            $table->string('relationship')->default('Single');
         });
     }
 

@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class FollowUser extends Component
 {	
-	public \App\Models\Profile $profile; 
+	public $profile; 
 
 	public $follow;
 

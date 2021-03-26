@@ -12,7 +12,7 @@ class ViewPost extends Component
     use Repliable;
     use PostFunctions;
 
-	public Post $post;
+	public $post;
 
 	public function mount(Post $post)
 	{

@@ -8,12 +8,12 @@ use App\Models\Profile;
 
 class ViewAbout extends Component
 {	
-		public Profile $profile;
+	public $profile;
 
-		public function mount(Profile $profile)
-		{
-			$this->profile = $profile;
-		}
+	public function mount(Profile $profile)
+	{
+		$this->profile = $profile;
+	}
 
     public function render()
     {

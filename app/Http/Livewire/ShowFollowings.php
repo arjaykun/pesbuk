@@ -11,7 +11,7 @@ class ShowFollowings extends Component
 {		
 	use WithPagination;
 
-  public User $user;
+  public $user;
 
   public $search;
 

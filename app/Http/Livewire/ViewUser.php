@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class ViewUser extends Component
 {		
-	public \App\Models\User $user; 
+	public $user; 
 
 	public $follow;
 

@@ -12,7 +12,7 @@ use Illuminate\Support\Arr;
 class EditProfile extends Component
 {
 
-	public Profile $profile;
+	public $profile;
 
 	public $bio;
 

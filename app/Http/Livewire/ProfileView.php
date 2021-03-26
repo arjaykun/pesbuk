@@ -13,11 +13,11 @@ class ProfileView extends Component
     use InfiniteScroll;
     use PostFunctions;
 
-	public User $user;
+	public $user;
 
 	public function mount(User $user)
 	{
-		$this->user = $user;
+        $this->user = $user;
 	}
 
     public function render()
@@ -36,7 +36,7 @@ class ProfileView extends Component
                 $query->limit(6);
             }
         ]);
-
+            
         $this->user->loadCount('followings');
 
         return view('livewire.profile-view', [

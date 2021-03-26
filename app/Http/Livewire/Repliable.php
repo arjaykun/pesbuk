@@ -14,7 +14,7 @@ trait Repliable
 
 	public $editReplyForm = false;
 
-	public Reply $selectedReply;
+	public $selectedReply;
 
 	public function createReply(Comment $comment)
 	{

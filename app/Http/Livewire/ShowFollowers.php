@@ -14,7 +14,7 @@ class ShowFollowers extends Component
 
     use WithPagination;
 
-	public User $user;
+	public $user;
 
     public $search = '';
 
@@ -39,7 +39,7 @@ class ShowFollowers extends Component
 
 		$followers = $this->user->profile->followers()
             ->where('name', 'LIKE', '%'.$this->search.'%')
-            ->with(['profile' => fn ($query) => $query->select('work', 'education', 'id', 'user_id') ])
+            ->with('profile:work, education, id, user_id')
             ->paginate(10);
 
         return view('livewire.show-followers', ['user' => $this->user, 'followers' => $followers]);

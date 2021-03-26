@@ -12,7 +12,7 @@ trait PostFunctions
 
   public $deleteConfirm, $editForm = false;
 
-  public Post $selectedPost;
+  public $selectedPost;
 
   public function createPost()
   {
